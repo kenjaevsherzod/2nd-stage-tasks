@@ -8,12 +8,12 @@ module.exports = class BasePage {
   }
 
   //Setting function in order to open given URLs.
-  async urlLink(url) {
+  async openURL(url) {
     await driver.get(url);
   }
 
-  //Setting function in order to qiut the test and close the window.
-  async qiut() {
+  //Setting function in order to quit the test and close the window.
+  async closeWindow() {
     await driver.quit();
   }
 };

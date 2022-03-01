@@ -1,59 +1,62 @@
-const bringItOn = require("../pom/Bring_It_On");
+const PasteBinPage = require("../pom/PasteBinPage");
+var should = require("chai").should();
 
 describe("WebDriver-[Bring It On]", function () {
   it("Open https://pastebin.com/ service.", async function () {
-    await bringItOn.urlLink("https://pastebin.com/");
+    await PasteBinPage.openURL("https://pastebin.com/");
   });
 
-  it("Paste given code into textare", async function () {
-    await bringItOn.pasteCode(
+  it("Paste given code into textarea", async function () {
+    await PasteBinPage.pasteCode(
       "postform-text",
       'git config --global user.name "New Sheriff in Town"\n\ngit reset $ (git commit-tree HEAD ^ {tree} -m "Legacy code")\n\ngit push origin master --force'
     );
   });
 
   it("Choose from syntax list Bash format", async function () {
-    await bringItOn.dropdownValues("select2-postform-format-container", "Bash");
+    await PasteBinPage.dropdownValues(
+      "select2-postform-format-container",
+      "Bash"
+    );
   });
 
   it("Choose expiration time period", async function () {
-    await bringItOn.dropdownValues(
+    await PasteBinPage.dropdownValues(
       "select2-postform-expiration-container",
       "10 Minutes"
     );
   });
 
   it("Paste page name, title", async function () {
-    await bringItOn.addTitle(
+    await PasteBinPage.addTitle(
       "postform-name",
       "how to gain dominance among developers"
     );
   });
 
   it("Save and click the button", async function () {
-    await bringItOn.submitButton('//*[@id="w0"]/div[5]/div[1]/div[8]/button');
+    await PasteBinPage.submitButton('button[type="submit"]');
   });
-});
 
-describe("Save paste and check the following", function () {
+  //"Save paste and check the following"
+
   it("Browser page title matches Paste Name / Title", async function () {
-    await bringItOn.pageTitleCheck(
+    let pageTitle = await PasteBinPage.pageTitleCheck();
+    pageTitle.should.equal(
       "how to gain dominance among developers - Pastebin.com"
     );
   });
 
   it("Syntax is suspended for bash", async function () {
-    await bringItOn.valCheck(
-      "body > div.wrap > div.container > div.content > div.post-view > div.highlighted-code > div.top-buttons > div.left > a",
-      "Bash"
-    );
+    let syntax = await PasteBinPage.valCheck("div.left > a");
+    syntax.should.equal("Bash");
   });
 
   it("Check that the code matches the one entered in paragraph 2", async function () {
-    await bringItOn.valCheck(
-      "body > div.wrap > div.container > div.content > div.post-view > textarea",
+    let code = await PasteBinPage.valCheck("div.source");
+    code.should.equal(
       'git config --global user.name "New Sheriff in Town"\n\ngit reset $ (git commit-tree HEAD ^ {tree} -m "Legacy code")\n\ngit push origin master --force'
     );
-    await bringItOn.qiut();
+    await PasteBinPage.closeWindow();
   });
 });
