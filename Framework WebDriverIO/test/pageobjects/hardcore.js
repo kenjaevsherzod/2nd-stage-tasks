@@ -7,7 +7,7 @@ class LoginPage extends BasePage {
   /**
    * define selectors using getter methods
    */
-  get searchIt() {
+  get searchPlace() {
     return $(".devsite-search-field");
   }
 
@@ -119,7 +119,7 @@ class LoginPage extends BasePage {
 
   //By clicking the search button enter in the search field "Google Cloud Platform Pricing Calculator"
   async search(txt) {
-    let searchArea = await this.searchIt;
+    let searchArea = await this.searchPlace;
     await searchArea.click();
     await searchArea.setValue(txt);
     if (searchArea != null) await browser.keys("\uE007");
@@ -205,7 +205,7 @@ class LoginPage extends BasePage {
   }
 
   //In a new tab, open https://10minutemail.com or a similar service for generating temporary emails
-  async switchToNewwindow() {
+  async switchToNewWindow() {
     await browser.newWindow("https://www.minuteinbox.com/");
     const handles = await browser.getWindowHandles();
     await browser.switchToWindow(handles[1]);
@@ -256,7 +256,7 @@ class LoginPage extends BasePage {
   /**
    * overwrite specific options to adapt it to page object
    */
-  open() {
+  openURL() {
     return super.open("https://cloud.google.com/");
   }
 }

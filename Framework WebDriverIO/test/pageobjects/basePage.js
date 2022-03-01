@@ -7,8 +7,8 @@ module.exports = class BasePage {
    * Opens a sub page of the page
    * @param path path of the sub page (e.g. /path/to/page.html)
    */
-  open(path) {
-    return browser.url(path);
+  openURL(url) {
+    return browser.url(url);
   }
 
   async dropDownValues(prop, value) {
@@ -20,10 +20,9 @@ module.exports = class BasePage {
       block: "center",
       inline: "nearest",
     });
-    // Wait untill it finds value of needed from dropdown and click it.
+    // Wait until it finds value of needed from dropdown and click it.
     let val = await value;
     await val.waitForExist();
-    await browser.pause(200);
     await val.click();
   }
 };

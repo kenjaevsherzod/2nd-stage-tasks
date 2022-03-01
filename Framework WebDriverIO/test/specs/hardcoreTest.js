@@ -6,7 +6,7 @@ describe("My Login application", () => {
   let cost;
 
   it("Open https://cloud.google.com/", async () => {
-    await LoginPage.open();
+    await LoginPage.openURL();
   });
 
   it('Enter in the search field "Google Cloud Platform Pricing Calculator" and click', async () => {
@@ -71,7 +71,7 @@ describe("My Login application", () => {
   });
 
   it("In a new tab, open https://10minutemail.com", async () => {
-    await LoginPage.switchToNewwindow();
+    await LoginPage.switchToNewWindow();
   });
 
   it("Get generated email address", async () => {
