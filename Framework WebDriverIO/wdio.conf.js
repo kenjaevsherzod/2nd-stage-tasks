@@ -237,15 +237,38 @@ exports.config = {
    * @param {Boolean} result.passed    true if test has passed, otherwise false
    * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  //   afterTest: function (
-  //     test,
-  //     context,
-  //     { error, result, duration, passed, retries }
-  //   ) {
-  //     if (error) {
-  //       browser.takeScreenshot();
-  //     }
-  //   },
+  afterTest: function (
+    test,
+    context,
+    { error, result, duration, passed, retries }
+  ) {
+    if (passed) {
+      return;
+    }
+    // Path for saving the screenshot
+    var path = "./screenshots/";
+    // Set current date format to use it in screenshot naming
+    var d = new Date();
+    var currentDateTime = encodeURIComponent(
+      d.getFullYear() +
+        "-" +
+        (d.getMonth() + 1) +
+        "-" +
+        d.getDate() +
+        "T" +
+        d.getHours() +
+        "-" +
+        d.getMinutes() +
+        "-" +
+        d.getSeconds()
+    );
+    // get current test title and clean it, to use it as file name
+    var filename = encodeURIComponent(test.title.replace(/\s+/g, "-"));
+    // build file path
+    var filePath = path + currentDateTime + "." + filename + ".png";
+    // save screenshot
+    browser.saveScreenshot(filePath);
+  },
 
   /**
    * Hook that gets executed after the suite has ended

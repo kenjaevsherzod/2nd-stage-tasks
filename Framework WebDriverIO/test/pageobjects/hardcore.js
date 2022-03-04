@@ -119,10 +119,11 @@ class LoginPage extends BasePage {
 
   //By clicking the search button enter in the search field "Google Cloud Platform Pricing Calculator"
   async search(txt) {
+    const pressEnter = "\uE007";
     let searchArea = await this.searchPlace;
     await searchArea.click();
     await searchArea.setValue(txt);
-    if (searchArea != null) await browser.keys("\uE007");
+    if (searchArea != null) await browser.keys(pressEnter);
   }
 
   //In the search results, click "Google Cloud Platform Pricing Calculator" and go to the calculator page.

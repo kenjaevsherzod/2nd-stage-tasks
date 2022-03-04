@@ -65,9 +65,6 @@ describe("My Login application", () => {
 
   it("Select EMAIL ESTIMATE", async () => {
     await LoginPage.emailEstimate();
-    // await browser.saveScreenshot(
-    //   `./screenshots/estimate-${new Date().getTime()}.png`
-    // );
   });
 
   it("In a new tab, open https://10minutemail.com", async () => {
